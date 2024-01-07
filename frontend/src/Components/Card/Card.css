@@ -1,0 +1,26 @@
+.card{
+    background: linear-gradient(94.51deg, rgba(167, 114, 234, 0.6) -76.35%, rgba(255, 224, 218, 0.44) 117.44%);
+    border: 1px solid #00000047;
+    border-radius: 20px
+}
+
+.card-body{
+    display: flex;
+}
+.card-body-child1{
+    font-family: Montserrat;
+    font-style: italic;
+    font-weight: 300;
+    text-align: left;
+    font-size: 1rem;
+    margin-right: 2%;
+}
+
+
+.card-body-child2{
+    font-family: Montserrat;
+    font-style: italic;
+    font-weight: 800;
+    text-align: left;
+    font-size: 1rem;
+}

@@ -1,0 +1,37 @@
+.bg-body-tertiary {
+    --bs-bg-opacity: 0 !important; /*makes bg transparent*/
+}
+.navbar-brand{
+    font-family: Montserrat;
+    color: #BD88FF !important;
+    opacity: 100%;
+    text-transform: uppercase;
+}
+.navSubContainer{
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.navSubSub ::before{
+    content: "" !important;
+    display: block !important;
+    height: 1px !important;
+    width: 35% !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: -3% !important;
+    background: #BD88FF ;
+}
+
+
+.navSubSub::after{
+    content: "" !important;
+    display: block !important;
+    height: 1px !important;
+    width: 36% !important;
+    position: absolute !important;
+    top: 50% !important;
+    right: -2.4% !important;
+    background: #FFF1E1 ;
+}
+  

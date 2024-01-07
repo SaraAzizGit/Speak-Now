@@ -1,0 +1,33 @@
+.contactPageMainContainer{
+    display: flex;
+}
+.contactPageSubContainer{
+    width: 57% !important;
+}
+
+.contactMainHeading{
+    font-family: Arnel;
+    color: #1e1e1e !important;
+    opacity: 100% !important;
+    font-size: 7.5rem !important;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.contactSubHeading{
+    font-family: Montserrat;
+    color: #1e1e1e !important;
+    opacity: 100% !important;
+    font-weight:400 !important;
+    font-size: 2rem !important;
+    text-transform: uppercase;
+    text-align: right;
+    width: 75%;
+}
+
+.contactPageSubContainerForm{
+    height: 70% !important;
+    align-self: flex-start !important;
+    width: 39% !important;
+    margin-top: 6% !important;
+}

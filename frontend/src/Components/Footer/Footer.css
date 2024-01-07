@@ -1,0 +1,36 @@
+.footerLines {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.footerLines:before, .footerLines:after{
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid;
+    margin: auto;
+    color:  #BD88FF;
+}
+
+.footerLines:before {
+    margin-right: 1%;
+    margin-left:-2.5%;
+}
+.footerLines:after {
+    margin-left: 1%;
+    margin-right: -2.4%;
+}
+
+.footerLink{
+    text-transform: uppercase;
+    font-family: Montserrat;
+    color:  #BD88FF;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+.footerLines,.footerLink{
+    margin-top: 1%;
+}

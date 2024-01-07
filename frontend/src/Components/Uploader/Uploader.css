@@ -1,0 +1,38 @@
+.uploaderContainer{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 90%;
+    height: 100%;
+}
+
+.containerMain{
+    width: 90%;
+    height: 100%;
+}
+.UploaderForm{
+    display: flex;
+    flex-direction: column;
+    justify-content:center !important;
+    align-items: center !important;
+    border: 2px dashed #1475cf;
+    width:80%;
+    height: max-content;
+    cursor:pointer;
+    border-radius: 5px;
+}
+
+.uploaded-row{
+    margin:10px 0;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 5px;
+    background-color:#e9f0ff;
+}
+
+.upload-content{
+    display: flex;
+    align-items: center;
+}

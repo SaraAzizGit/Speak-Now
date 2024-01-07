@@ -1,0 +1,65 @@
+  
+.teamHeading{
+    font-family: Arnel;
+    text-transform: uppercase;
+    font-size: 5rem !important;
+    text-align: center;
+    color: #1e1e1e !important;
+    opacity: 100% !important;
+}
+
+.teamCardsContainer{
+    display: flex;
+    margin-bottom: 4% !important;
+}
+
+
+.teamCard{
+    display: flex;
+    flex-direction: column;
+    width: 100% !important;
+    justify-content: center;
+    align-items: center;
+    margin: 1px;
+}
+
+.imageContainer{
+    height: 80% !important;
+    width: 100%;
+}
+.teamMemberPic{
+    height: 100% !important;
+    width: 100%;
+}
+.img-fluid{
+    height: 100% !important;
+    width: 100%;
+}
+
+
+.teamMemberName{
+    font-family: Montserrat;
+    font-weight:800 !important;
+    font-size: 2rem !important;
+    text-transform: uppercase;
+    margin-top: 1rem !important;
+    color: #a772ea !important;
+}
+
+.textOverlay{
+    display: none;
+    position: relative;
+    text-align: center;
+    width: 16% !important;
+}
+
+.imageContainer:hover .textOverlay{
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+}
+
+.imageContainer:hover .teamMemberPic{
+    border-radius: 25px !important;
+}

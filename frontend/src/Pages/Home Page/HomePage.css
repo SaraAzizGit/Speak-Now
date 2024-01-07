@@ -1,0 +1,39 @@
+.homePageContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4.5rem;
+}
+.homePageHeading{
+    font-family: Arnel;
+    text-transform: uppercase ;
+    font-size: 18rem !important;
+    color: #000;
+    opacity: 72%;
+}
+
+.homePageButton{
+    background-color: transparent !important;
+    border-radius:0px !important;
+    padding: 0rem !important;
+    margin-bottom: 6%;
+}
+
+.HomebuttonText{
+    font-size: 1.75rem !important;
+    color: #a772ea  !important;
+    font-family: 'Montserrat' !important;
+    text-transform: uppercase !important;
+    text-decoration: none;
+    opacity: 100% !important;
+    background-color: transparent !important;
+    font-weight: 300 !important;
+    font-style: italic;  
+}
+
+.HomebuttonText:hover {
+    color: #000  !important;
+    text-decoration: underline !important;
+}
+

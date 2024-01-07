@@ -1,0 +1,88 @@
+.featuresContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 85% !important;
+}
+
+.featuresPageHeading{
+    font-family: Arnel;
+    text-transform: uppercase;
+    color: #1e1e1e !important;
+    font-size: 5rem !important;
+    opacity: 100%;
+    text-align: center;
+}
+
+.cardContainer{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.featuresCard{
+    width: 41% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 3%;
+    margin-top:0%;
+    margin-bottom:0%;
+    height:180px;
+}
+
+.CardOne{
+    background-color:  #CBB3DF;
+    margin-bottom:3%;
+}
+
+.CardTwo{
+    background-color:  #FFDBAC;
+    margin-bottom:3%;
+}
+
+.CardThree{
+    background-color:  #F6BAB2;
+    margin-bottom:3%;
+}
+
+.CardFour{
+    background-color:  #FFCB78;
+    margin-bottom:3%;
+}
+.cardHeadingContainer{
+    width: 100%;
+    text-align: center;
+}
+.cardHeading{
+    font-size: 1.75rem !important;
+    color: #1e1e1e;
+    opacity: 100% !;
+    font-family: Montserrat;
+    font-weight: normal;
+}
+
+.cardDescriptionContainer{
+    width:85% !important;
+}
+.cardDescription{
+    font-size: 1rem !important;
+    font-family: Montserrat;
+    font-weight: bold !important;
+    color: #A772EA !important;
+    opacity: 100% !;
+    text-align: center;
+}
+
+.featuresPageButtons{
+    display: flex;
+    justify-content: center;
+}
+
+.featureButton{
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}

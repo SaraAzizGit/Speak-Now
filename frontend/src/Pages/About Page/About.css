@@ -1,0 +1,37 @@
+.aboutContainer{
+    margin-top: 4.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 4%;
+}
+
+.aboutHeading{
+    font-family: Arnel !important;
+    font-size: 150px !important;
+    color: #000;
+    opacity: 72%;
+    font-weight: 400 !important;
+}
+.aboutHeadingSpan{
+    font-family: Arnel !important;
+    font-size: 150px !important;
+    color :#a772ea;
+    opacity: 100%;
+    font-weight: 400 !important
+}
+
+.aboutDataContainer{
+    margin-top: 2rem;
+    width: 80% !important;
+}
+.aboutDataPara{
+    font-family: Montserrat;
+    font-size: 28px !important;
+    font-weight:normal !important;
+    letter-spacing: 0em !important;
+    text-align: center !important;
+    opacity: 100% !important;
+    color: #1e1e1e !important;
+}

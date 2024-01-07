@@ -1,0 +1,22 @@
+.feedbackHeading{
+    font-family: Montserrat;
+    font-style: italic;
+    font-weight: 800 !important;
+}
+.feedbackData{
+    font-family: Montserrat;
+    font-style: italic;
+    font-weight: 400;
+}
+.read-more{
+    width: 100%;
+    background-color: transparent;
+    font-family: Montserrat;
+    font-size: 20px;
+    font-style: italic;
+    font-weight: 600;
+    color: #A772EA !important;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    border: none;
+}
