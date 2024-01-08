@@ -34,7 +34,7 @@ def get_feedback():
     nervousness = round(nervousness, 2)
     confidence = round(confidence, 2)
 
-    return jsonify({"nervousness": 0.7, "confidence": 0.3})
+    return jsonify({"nervousness": nervousness, "confidence": confidence})
 
 
 
