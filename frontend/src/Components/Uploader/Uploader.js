@@ -1,14 +1,38 @@
 import React from 'react'
+import axios from 'axios'
 import { useState } from 'react'
 import {MdCloudUpload,MdDelete} from 'react-icons/md'
 import {AiFillFileImage} from 'react-icons/ai'
 import ReactPlayer from 'react-player'
 import './Uploader.css'
+import Button from '../../Components/Button/Button'
 
 const Uploader = () => {
 
     const [video,setVideo]=useState(null);
     const [fileName,setFileName]=useState("No selected file");
+
+    const uploadVideo = async(file) => {
+      const formData = new FormData()
+      formData.append('video', file)
+
+      try {
+        const response = await axios.post('http://localhost:5000/api/upload_video', formData, { method: 'POST', })
+
+        console.log(response.data)
+      } catch (error) {
+        console.log('Error uploading video', error)
+      }
+    }
+
+    const handleFileChange = (files) => {
+      if (files) {
+        setFileName(files[0].name)
+        setVideo(URL.createObjectURL(files[0]))
+        uploadVideo(files[0])
+      }
+    }
+
   return (
     <div className='container-fluid uploaderContainer'>
         <main className='container-fluid containerMain'>
@@ -18,13 +42,8 @@ const Uploader = () => {
                   type="file"  
                   className='input-field' 
                   hidden 
-                  onChange={({target:{files}})=>{
-                    files[0]&&setFileName(files[0].name)
-                    if(files){
-                        setVideo(URL.createObjectURL(files[0]))
-                    }
-                  }
-                }/>
+                  onChange={({target:{files}}) => handleFileChange(files)}
+                />
                 {video ?
                 <ReactPlayer
                   url={video}
@@ -51,6 +70,8 @@ const Uploader = () => {
                     />
                 </span>
             </section>
+
+            <div className="container-fluid featureButton"><Button message={"View Feedback"} link={"feedback"}></Button></div>
 
         </main>
     </div>

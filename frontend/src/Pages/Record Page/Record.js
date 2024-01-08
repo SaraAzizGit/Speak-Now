@@ -2,7 +2,7 @@ import React from 'react'
 import { useRecordWebcam } from 'react-record-webcam'
 import { useState } from 'react'
 import './Record.css'
-
+import Button from '../../Components/Button/Button'
 
 const Record = () => {
     const {
@@ -137,6 +137,7 @@ const Record = () => {
                 </button>
               </div>
             </div>
+            <div className="container-fluid featureButton"> <Button message={"View Feedback"} link={"feedback"}></Button></div>
             </div>
           </div>
         ))}

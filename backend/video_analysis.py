@@ -44,7 +44,7 @@ def extract_audio(video_path, output_audio_path):
 
 
 # sending video file to functions to recognize emotions and extract audio
-video_relative_path = "../backend/videos_for_analysis/test_video_1.mp4"
+video_relative_path = "../backend/videos_for_analysis/uploaded_video.mp4"
 video_absolute_path = os.path.abspath(video_relative_path)
 
 output_audio_relative_path = "../backend/audios_for_analysis/audio.wav"

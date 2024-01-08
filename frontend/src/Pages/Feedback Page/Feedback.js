@@ -21,7 +21,7 @@ const Feedback = () => {
     };
 
     fetchData();
-  }, []); // Empty dependency array means this effect runs once, similar to componentDidMount
+  }, []);
 
   if (feedbackData === null) {
     return <p>Loading...</p>;
