@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import { useRecordWebcam } from 'react-record-webcam'
 import { useState } from 'react'
 import './Record.css'
@@ -35,10 +36,36 @@ const Record = () => {
           setAudioDeviceId(deviceId);
         }
       };
-      const start = async () => {
-        const recording = await createRecording(videoDeviceId, audioDeviceId);
-        if (recording) await openCamera(recording.id);
-      };
+    
+    const start = async () => {
+      const recording = await createRecording(videoDeviceId, audioDeviceId);
+      if (recording) await openCamera(recording.id);
+    };
+
+    const uploadVideo = async(file) => {
+      const formData = new FormData();
+      formData.append('video', file);
+
+      try {
+        await axios.post('http://localhost:5000/api/upload_video', formData, { headers: {
+          'Content-Type': 'multipart/form-data',
+        }}, );
+        console.log('Video uploaded successfully');
+      } catch (error) {
+        console.log('Error uploading video:', error);
+      }
+    };
+
+    const handleStopRecording = async(recordingId) => {
+      await stopRecording(recordingId);
+
+      const recording = activeRecordings.find((rec) => rec.id === recordingId);
+
+      if (recording && recording.blob) {
+        uploadVideo(recording.blob);
+      }
+    };
+
     return (
       
     <div className='container-fluid mainContainer'>
@@ -68,7 +95,6 @@ const Record = () => {
         </div>
 
       </div>
-
       
       <div className="input-start">
         <button onClick={start}>Open camera</button>
@@ -130,14 +156,12 @@ const Record = () => {
             <div className="container-fluid preview">
               <p>Preview</p>
               <video ref={recording.previewRef} autoPlay loop playsInline />
-              <div className="controls">
+              <div className="controls">                
                 <button onClick={() => download(recording.id)}>Download</button>
-                <button onClick={() => clearPreview(recording.id)}>
-                  Clear preview
-                </button>
+                <button onClick={() => clearPreview(recording.id)}>Clear preview</button>
               </div>
             </div>
-            <div className="container-fluid featureButton"> <Button message={"View Feedback"} link={"feedback"}></Button></div>
+            <div className="container-fluid featureButton"> <Button message={"Upload"} link={"feedback"} onClick={() => handleStopRecording(recording.id)}></Button></div>
             </div>
           </div>
         ))}

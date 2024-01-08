@@ -71,7 +71,7 @@ const Uploader = () => {
                 </span>
             </section>
 
-            <div className="container-fluid featureButton"><Button message={"View Feedback"} link={"feedback"}></Button></div>
+            <div className="container-fluid featureButton"><Button message={"Upload"} link={"feedback"}></Button></div>
 
         </main>
     </div>

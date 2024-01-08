@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS # Cross Origin Resource Sharing
 import os
 
 app = Flask(__name__)
@@ -38,5 +38,15 @@ def get_feedback():
 
 
 
+@app.route("/api/delete_video", methods=["POST"])
+def delete_video():
+    
+    path = os.path.join(os.path.dirname(__file__), "videos_for_analysis", "uploaded_video.mp4")
+    os.remove(path)
+
+    return jsonify({"success": "Video deleted successfully"})
+
+
+
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

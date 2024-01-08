@@ -37,6 +37,15 @@ const Feedback = () => {
     }],
   };
 
+  const handleDownloadButton = async() => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/delete_video');
+      console.log(response.data);
+    } catch (error) {
+      console.log('Error downloading report:', error)
+    }
+  }
+
   return (
     <div>
       <h1 className='display-1 featuresPageHeading'>Great...Your Detailed Report is Here</h1>
@@ -49,7 +58,7 @@ const Feedback = () => {
         <div className="container-fluid"><Card body={"NERVOUSNESS"} percent={feedbackData.nervousness}/></div>
         </div>
         <div className="container-fluid reportFeedback"> <FeedbackHalf/></div>
-        <div className="container-fluid buttonReport"><Button message={"Download Report"}/></div>
+        <div className="container-fluid buttonReport"><Button message={"Download Report"} onClick={handleDownloadButton}/></div>
         
       </div>
       
