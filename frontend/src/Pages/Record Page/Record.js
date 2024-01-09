@@ -56,15 +56,18 @@ const Record = () => {
       }
     };
 
-    const handleStopRecording = async(recordingId) => {
-      await stopRecording(recordingId);
-
-      const recording = activeRecordings.find((rec) => rec.id === recordingId);
-
-      if (recording && recording.blob) {
-        uploadVideo(recording.blob);
+    const handleStopRecording = async () => {
+      const recording = activeRecordings[0];
+      if (recording) {
+        await stopRecording(recording.id);
+      
+        if (recording.blob) {
+          uploadVideo(recording.blob);
+        }
+      } else {
+        console.error('No recording found');
       }
-    };
+    };    
 
     return (
       
@@ -161,7 +164,7 @@ const Record = () => {
                 <button onClick={() => clearPreview(recording.id)}>Clear preview</button>
               </div>
             </div>
-            <div className="container-fluid featureButton"> <Button message={"Upload"} link={"feedback"} onClick={() => handleStopRecording(recording.id)}></Button></div>
+            <div className="container-fluid featureButton"><Button message={"Upload"} link={"feedback"} onClick={() => handleStopRecording(recording)}></Button></div>
             </div>
           </div>
         ))}
