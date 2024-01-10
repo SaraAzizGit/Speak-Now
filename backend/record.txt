@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Button from '../../Components/Button/Button';
+import Button from '../../Components/Button/Button'
 import axios from 'axios';
 
 const Record = () => {
@@ -7,7 +7,16 @@ const Record = () => {
   const mediaRecorderRef = useRef(null);
   const [isRecording, setIsRecording] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [recordedChunks, setRecordedChunks] = useState([]);
+  const [uploadButtonVisible, setUploadButtonVisible] = useState(false);
   const [recordedVideoUrl, setRecordedVideoUrl] = useState(null);
+
+
+  useEffect(() => {
+    if (uploadButtonVisible && recordedChunks.length > 0) {
+      uploadVideo();
+    }
+  }, [uploadButtonVisible, recordedChunks]);  
 
   const startRecording = () => {
     if (mediaRecorderRef.current) {
@@ -33,6 +42,7 @@ const Record = () => {
         mediaRecorderRef.current.onstop = () => {
           const blob = new Blob(chunks, { type: 'video/mp4' });
           const url = URL.createObjectURL(blob);
+          setRecordedChunks([...chunks]);
           setRecordedVideoUrl(url);
         };
 
@@ -68,16 +78,30 @@ const Record = () => {
     }
   };
 
+  const downloadVideo = (url) => {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'recorded-video.mp4';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  };
+
   const uploadVideo = async () => {
-    if (recordedVideoUrl) {
+    if (recordedChunks.length > 0) {
+      const blob = new Blob(recordedChunks, { type: 'video/mp4' });
+      console.log('Blob size:', blob.size);
+      const formData = new FormData();
+      formData.append('video', blob);
+    
       try {
-        const response = await axios.post('http://localhost:5000/api/upload_recorded_video', { videoUrl: recordedVideoUrl });
+        const response = await axios.post('http://localhost:5000/api/upload_video', formData, {headers: {'Content-Type': 'multipart/form-data', }, });
         console.log(response.data);
       } catch (error) {
         console.log('Error uploading video', error);
       }
     }
-  };
+  };    
 
   return (
     <div>
@@ -95,10 +119,12 @@ const Record = () => {
         ) : (
           <>
             <button onClick={startRecording}>Start Recording</button>
-            {recordedVideoUrl && (
-              <div className="container-fluid featureButton">
-                <Button message={"Upload"} onClick={uploadVideo} link={"feedback"} />
-              </div>
+            {recordedChunks.length > 0 && (
+              <button onClick={downloadVideo}>Download Recording</button>
+            )}
+            {recordedChunks.length > 0 && (
+              <div className="container-fluid featureButton"><Button message={"Upload"}
+              onClick={uploadVideo} link={"feedback"}></Button></div>
             )}
           </>
         )}

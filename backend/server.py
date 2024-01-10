@@ -1,9 +1,32 @@
+import requests
 from flask import Flask, request, jsonify
 from flask_cors import CORS # Cross Origin Resource Sharing
 import os
 
 app = Flask(__name__)
 CORS(app)
+
+@app.route("/api/upload_recorded_video", methods=["POST"])
+def upload_recorded_video():
+    
+    # getting the video URL from the request
+    video_url = request.json.get('videoUrl')
+
+    # validating if a valid URL is provided
+    if not video_url:
+        return jsonify({"error": "Invalid video URL"}), 400
+
+    # downloading the video
+    video_data = requests.get(video_url).content
+
+    # saving the video to a desired location
+    save_path = os.path.join(os.path.dirname(__file__), "videos_for_analysis", "saved_video.mp4")
+    with open(save_path, 'wb') as video_file:
+        video_file.write(video_data)
+
+    return jsonify({"success": "Video saved successfully"}), 200
+    
+
 
 @app.route("/api/upload_video", methods=["GET", "POST"])
 def upload_video():
