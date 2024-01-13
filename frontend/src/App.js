@@ -11,6 +11,7 @@ import Record from './Pages/Record Page/Record';
 import Feedback from './Pages/Feedback Page/Feedback';
 import ReadMore from './Components/Read More/ReadMore';
 import UploadPage from './Pages/Upload Page/UploadPage';
+import TutorialPage from './Pages/Tutorial Page/TutorialPage';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path='/upload' element={<UploadPage/>}/>
           <Route path='/feedback' element={<Feedback/>}/>
           <Route path='/readmore' element={<ReadMore/>}/>
+          <Route path='/tutorial' element={<TutorialPage/>}/>
         </Routes>
       </Router>
       
