@@ -36,7 +36,8 @@ const Uploader = () => {
   return (
     <div className='container-fluid uploaderContainer'>
         <main className='container-fluid containerMain'>
-            <form className='container-fluid UploaderForm' onClick={()=>document.querySelector(".input-field").click()}
+        <div className='container-fluid uploaderContainer'>
+        <form className='container-fluid UploaderForm' onClick={()=>document.querySelector(".input-field").click()}
             >
                 <input 
                   type="file"  
@@ -53,23 +54,30 @@ const Uploader = () => {
                 />
                 :
                 <>
-                <MdCloudUpload color='#1475cf' size={60}/>
-                <p>Browse Files to Upload</p>
+                <MdCloudUpload color='#a772ea' size={100}/>
+                <p className='lead iconText'>Browse Files to Upload</p>
                 </>
                 }
             </form>
+        </div>
 
-            <section className='uploaded-row'> 
-                <AiFillFileImage color='#1475cf'/>
+        <div className="container-fluid uploaded-rowContainer">
+        <section className='uploaded-row'> 
+                <AiFillFileImage color='#a772ea'/>
                 <span className='upload-content'>
                     {fileName}
                     <MdDelete 
                        onClick={()=>{setFileName("No selected file");
                        setVideo(null)
                     }}
+                    color='#a772ea'
                     />
                 </span>
             </section>
+        </div>
+
+
+
 
             <div className="container-fluid featureButton"><Button message={"Upload"} link={"feedback"}></Button></div>
 

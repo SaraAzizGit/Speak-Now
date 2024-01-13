@@ -2,12 +2,13 @@
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-    width: 90%;
+    width: 100%;
     height: 100%;
+    margin-top: 2.5%;
 }
 
 .containerMain{
-    width: 90%;
+    width: 100%;
     height: 100%;
 }
 .UploaderForm{
@@ -15,13 +16,17 @@
     flex-direction: column;
     justify-content:center !important;
     align-items: center !important;
-    border: 2px dashed #1475cf;
-    width:80%;
-    height: max-content;
+    border: 2px dashed #a772ea ;
+    width:80% !important;
+    height: 50vh;
     cursor:pointer;
     border-radius: 5px;
 }
 
+.iconText{
+    font-family: Montserrat;
+    font-weight: 400 !important;
+}
 .uploaded-row{
     margin:10px 0;
     display:flex;
@@ -30,9 +35,13 @@
     padding: 15px 20px;
     border-radius: 5px;
     background-color:#e9f0ff;
+    width: 80% !important;
+    margin-left: 10%;
 }
 
 .upload-content{
     display: flex;
     align-items: center;
+    font-family: Montserrat;
+    
 }
