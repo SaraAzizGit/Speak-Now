@@ -16,7 +16,7 @@
 }
 .button:hover{
     background-color: transparent !important;
-    border: solid 2px #A772EA ;
+    border: solid 2px #A772EA !important;
 }
 
 .buttonText{

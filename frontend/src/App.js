@@ -8,9 +8,10 @@ import Team from './Pages/Team Page/Team';
 import Contact from './Pages/Contact Page/Contact';
 import ErrorPage from './Pages/Error Page/ErrorPage';
 import Record from './Pages/Record Page/Record';
-import Uploader from './Components/Uploader/Uploader';
 import Feedback from './Pages/Feedback Page/Feedback';
 import ReadMore from './Components/Read More/ReadMore';
+import UploadPage from './Pages/Upload Page/UploadPage';
+import TutorialPage from './Pages/Tutorial Page/TutorialPage';
 
 function App() {
   return (
@@ -24,9 +25,10 @@ function App() {
           <Route path='/contact' element={<Contact/>}/>
           <Route path='/error' element={<ErrorPage/>}/>
           <Route path='/record' element={<Record/>}/>
-          <Route path='/upload' element={<Uploader/>}/>
+          <Route path='/upload' element={<UploadPage/>}/>
           <Route path='/feedback' element={<Feedback/>}/>
           <Route path='/readmore' element={<ReadMore/>}/>
+          <Route path='/tutorial' element={<TutorialPage/>}/>
         </Routes>
       </Router>
       
