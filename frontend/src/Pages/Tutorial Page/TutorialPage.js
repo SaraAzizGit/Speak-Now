@@ -8,7 +8,7 @@ const TutorialPage = () => {
   return (
     <div className='container-fluid tutorialPageContainer'>
         <h1 className='display-1 tutorialHeading'>Feeling Stuck?</h1>
-        <h1 className='display-6 tutorialSubHeading'>No worries,we got you!</h1>
+        <h1 className='display-6 tutorialSubHeading'>No worries, we got you!</h1>
         <div className='container-fluid tutorialVideoContainer'>
             <ReactPlayer
               url={vidUrl}
