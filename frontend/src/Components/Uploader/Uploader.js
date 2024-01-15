@@ -26,6 +26,9 @@ const Uploader = () => {
     }
 
     const handleFileChange = (files) => {
+      if (!files || files.type !== 'video/mp4' || files.type !== 'video/webm') {
+        window.location.href = '/error'
+      }
       if (files) {
         setFileName(files[0].name)
         setVideo(URL.createObjectURL(files[0]))

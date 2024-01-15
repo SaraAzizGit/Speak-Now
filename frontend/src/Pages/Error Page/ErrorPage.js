@@ -6,6 +6,10 @@ import './ErrorPage.css'
 
 const ErrorPage = () => {
 
+  const goBack = () => {
+    window.history.back();
+  };
+
   const error=ErrorMessage.map(data => {
     return(
       <div className='container-fluid errorText'>
@@ -18,7 +22,7 @@ const ErrorPage = () => {
     <div className='container-fluid errorPageContainer'>
       <div className="container-fluid errorMessage">
         {error}
-        <Button message={"Go Back"} link={""}/>
+        <Button message={"Go Back"} onClick={goBack}/>
       </div>
 
       <div className="container-fluid errorPic">

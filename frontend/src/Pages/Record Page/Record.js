@@ -86,7 +86,7 @@ const Record = () => {
   };
 
   return (
-    <div className='container-fluid'>
+    <div className='container-fluid record-container'>
 
       <div className='camera'>
         <video ref={videoRef}></video>

@@ -38,12 +38,12 @@ const Feedback = () => {
     }],
   };
 
-  const handleDownloadButton = async() => {
+  const handleRetryButton = async() => {
     try {
       const response = await axios.post('http://localhost:5000/api/delete_video');
       console.log(response.data);
     } catch (error) {
-      console.log('Error downloading report:', error)
+      console.log('Error retrying:', error)
     }
   }
 
@@ -61,7 +61,7 @@ const Feedback = () => {
         <div className="container-fluid reportFeedback">
           {(feedbackData.confidence>feedbackData.nervousness)? <FeedbackHalfConfident/>:<FeedbackHalfNervous/>}
         </div>
-        <div className="container-fluid buttonReport"><Button message={"Download Report"} onClick={handleDownloadButton}/></div>
+        <div className="container-fluid buttonReport"><Button message={"Retry"} onClick={handleRetryButton} link={"features"}/></div>
         
       </div>
       

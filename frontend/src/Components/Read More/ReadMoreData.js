@@ -41,15 +41,15 @@ export const ReadMoreNervousData = [
     {
         id:"1",
         heading:"Overall Assessment",
-        placeholder:["Congratulations on your presentation!While it's clear you were feeling the nerves quite strongly, you persevered and delivered a valuable message. Your passion for the topic was evident, and I commend you for stepping outside your comfort zone to share your knowledge."]
+        placeholder:["Thank you for your presentation. While there are moments of nervousness, there's potential for improvement in building confidence and composure during your delivery. Let's explore specific areas for growth."]
     },
     {
         id:"2",
         heading:"Strengths",
         placeholder:[
-            "Content Knowledge: You clearly understood your material and conveyed it factually and accurately.",
-            "Passion: Your enthusiasm for the topic shone through, even amidst the nervousness, and that kept the audience engaged.",
-            "Resilience: You didn't let your nerves derail you, and you continued to present with grace and composure"
+            "Content Knowledge: Your grasp of the subject matter is evident, showcasing a solid foundation in your presentation topic.",
+            "Effort: Despite nervous moments, your effort to convey the message is apparent. Your commitment to the material is commendable.",
+            "Engagement: You make an effort to connect with the audience, and your genuine interest in the topic is conveyed."
         ]
         
     },
@@ -57,21 +57,21 @@ export const ReadMoreNervousData = [
         id:"3",
         heading:"Areas for Improvements",
         placeholder :[
-            "Managing Nervousness: It's completely understandable that nerves can strike, but addressing them in advance will enhance your future presentations. Techniques like deep breathing, practicing in front of friends, and focusing on the audience can help.",
-            "Eye Contact: While connecting with the audience through eye contact can be challenging when nervous, making small glances across the room can foster a stronger connection and project confidence."
+            "Nervous Tendencies: Recognize and address moments of nervousness, which can distract from the content. Building confidence in these moments will enhance overall delivery.",
+            "Body Language: Work on maintaining steady body language. Avoid excessive fidgeting or gestures that may convey nervousness to the audience."
         ]
     },
     {
         id:"4",
         heading:"Recommendations",
         placeholder:[
-            "Practice More: Prior to your next presentation, dedicate significant time to rehearsing out loud, both alone and with others, to build confidence and overcome nervousness.",
-            "Relaxation Techniques: Explore techniques like deep breathing exercises, meditation, or visualization to calm your nerves before and during presentations."
+            "Practice Relaxation Techniques: Incorporate relaxation techniques before and during your presentation to manage nervousness. Deep breaths and mindfulness can be beneficial.",
+            "Rehearse with Feedback: Practice in front of a mirror or seek feedback from peers. Constructive input can help you identify and address specific areas of nervousness."
         ]
     },
     {
         id:"5",
         heading:"Conclusion",
-        placeholder:["Despite the nerves, you delivered a valuable presentation. With targeted practice and some tools to manage your nerves, you'll soon be showcasing your knowledge with even greater effectiveness and confidence. Remember, everyone gets nervous sometimes, so don't be discouraged. Keep practicing, focus on your strengths, and trust that you have valuable insights to share!"]
+        placeholder:["Your dedication to improving your presentation skills is evident. With focused efforts on building confidence and managing nervous tendencies, you can enhance your overall impact as a speaker. Keep practicing, and you'll see positive strides in your presentation delivery."]
     }    
 ];

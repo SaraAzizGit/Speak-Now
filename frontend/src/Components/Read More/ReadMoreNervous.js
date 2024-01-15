@@ -1,8 +1,7 @@
 import React from 'react'
+import Button from '../Button/Button'
 import { ReadMoreNervousData } from './ReadMoreData'
 import './ReadMore.css'
-
-
 
 const ReadMoreNervous = () => {
     const feedback=ReadMoreNervousData.map(data=>{
@@ -50,6 +49,7 @@ const ReadMoreNervous = () => {
       <div className="container-fluid first" >
       {feedback}
       </div>
+      <div className="container-fluid featureButton goback-btn"><Button message={"Go Back"} link={"feedback"}></Button></div>
     </div>
   )
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import Uploader from '../../Components/Uploader/Uploader'
 import './UploadPage.css'
 
-
 const UploadPage = () => {
   return (
     <div className='container-fluid uploader'>

@@ -40,7 +40,7 @@ const ContactForm = () => {
       )
       .then(()=>{
         setLoading(false);
-        alert("Thank you .We will get back to you as soon as possible !");
+        alert("Thank you. We will get back to you as soon as possible !");
         //reset the form
         setForm({
         name:'',
