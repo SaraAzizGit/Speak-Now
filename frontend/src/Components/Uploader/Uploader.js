@@ -26,13 +26,17 @@ const Uploader = () => {
     }
 
     const handleFileChange = (files) => {
-      if (!files || files.type !== 'video/mp4' || files.type !== 'video/webm') {
-        window.location.href = '/error'
-      }
-      if (files) {
-        setFileName(files[0].name)
-        setVideo(URL.createObjectURL(files[0]))
-        uploadVideo(files[0])
+      if (files.length > 0) {
+        const file = files[0];
+      
+        if (file.type.startsWith('video/')) {
+          setFileName(file.name)
+          setVideo(URL.createObjectURL(file))
+          uploadVideo(file)
+        }
+        else {
+          window.location.href = '/error'
+        }
       }
     }
 
@@ -78,11 +82,8 @@ const Uploader = () => {
                 </span>
             </section>
         </div>
-
-
-
-
-            <div className="container-fluid featureButton"><Button message={"Upload"} link={"feedback"}></Button></div>
+        
+        <div className="container-fluid featureButton"><Button message={"Upload"} link={"feedback"}></Button></div>
 
         </main>
     </div>
