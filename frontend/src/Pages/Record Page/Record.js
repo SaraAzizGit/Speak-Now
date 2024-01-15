@@ -1,6 +1,7 @@
 import React,{useState,useRef,useEffect} from 'react'
 import Button from '../../Components/Button/Button';
 import axios from 'axios';
+import './Record.css'
 
 const Record = () => {
   const videoRef = useRef(null);
@@ -11,7 +12,7 @@ const Record = () => {
 
   const getVideo = () => {
     navigator.mediaDevices
-      .getUserMedia({ video: { width: 1920, height: 1080 }, audio:true })
+      .getUserMedia({ video: { width: 1080, height: 500 }, audio:true })
       .then((stream) => {
         let video = videoRef.current;
         if ('srcObject' in video) {
@@ -90,9 +91,9 @@ const Record = () => {
       <div className='camera'>
         <video ref={videoRef}></video>
         {isRecording ? (
-          <button onClick={stopRecording}>Stop Recording</button>
+          <button className="recording-button" onClick={stopRecording}>Stop Recording</button>
         ) : (
-          <button onClick={startRecording}>Start Recording</button>
+          <button className="recording-button" onClick={startRecording}>Start Recording</button>
         )}
         {recordedVideoUrl && (
               <div className="container-fluid featureButton">
