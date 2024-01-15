@@ -28,6 +28,7 @@ const Uploader = () => {
     const handleFileChange = (files) => {
       if (files.length > 0) {
         const file = files[0];
+        setFileName(file.name)
       
         if (file.type.startsWith('video/')) {
           setFileName(file.name)
