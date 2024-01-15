@@ -9,9 +9,11 @@ import Contact from './Pages/Contact Page/Contact';
 import ErrorPage from './Pages/Error Page/ErrorPage';
 import Record from './Pages/Record Page/Record';
 import Feedback from './Pages/Feedback Page/Feedback';
-import ReadMore from './Components/Read More/ReadMore';
+import ReadMoreConfident from './Components/Read More/ReadMoreConfident';
+import ReadMoreNervous from './Components/Read More/ReadMoreNervous';
 import UploadPage from './Pages/Upload Page/UploadPage';
 import TutorialPage from './Pages/Tutorial Page/TutorialPage';
+
 
 function App() {
   return (
@@ -27,7 +29,8 @@ function App() {
           <Route path='/record' element={<Record/>}/>
           <Route path='/upload' element={<UploadPage/>}/>
           <Route path='/feedback' element={<Feedback/>}/>
-          <Route path='/readmore' element={<ReadMore/>}/>
+          <Route path='/readmore-confident' element={<ReadMoreConfident/>}/>
+          <Route path='/readmore-nervous' element={<ReadMoreNervous/>}/>
           <Route path='/tutorial' element={<TutorialPage/>}/>
         </Routes>
       </Router>

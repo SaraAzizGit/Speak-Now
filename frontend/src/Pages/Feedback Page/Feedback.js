@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import PieChart from '../../Components/PieChart/PieChart'
-import FeedbackHalf from '../../Components/Read More/FeedbackHalf'
+import FeedbackHalfConfident from '../../Components/Read More/FeedbackHalfConfident'
+import FeedbackHalfNervous from '../../Components/Read More/FeedbackHalfNervous'
 import Button from '../../Components/Button/Button'
 import Card from '../../Components/Card/Card'
 import './Feedback.css'
@@ -57,7 +58,9 @@ const Feedback = () => {
         <div className="container-fluid"><Card body={"CONFIDENCE"} percent={feedbackData.confidence}/></div>
         <div className="container-fluid"><Card body={"NERVOUSNESS"} percent={feedbackData.nervousness}/></div>
         </div>
-        <div className="container-fluid reportFeedback"> <FeedbackHalf/></div>
+        <div className="container-fluid reportFeedback">
+          {(feedbackData.confidence>feedbackData.nervousness)? <FeedbackHalfConfident/>:<FeedbackHalfNervous/>}
+        </div>
         <div className="container-fluid buttonReport"><Button message={"Download Report"} onClick={handleDownloadButton}/></div>
         
       </div>
