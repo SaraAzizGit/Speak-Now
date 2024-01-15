@@ -1,72 +1,77 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React,{useState,useRef,useEffect} from 'react'
 import Button from '../../Components/Button/Button';
 import axios from 'axios';
 
 const Record = () => {
   const videoRef = useRef(null);
   const mediaRecorderRef = useRef(null);
+  const recordedChunksRef = useRef([]);
   const [isRecording, setIsRecording] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
   const [recordedVideoUrl, setRecordedVideoUrl] = useState(null);
 
-  const startRecording = () => {
-    if (mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop();
-      setIsRecording(false);
-      setIsPaused(false);
-      mediaRecorderRef.current = null;
-    }
-
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+  const getVideo = () => {
+    navigator.mediaDevices
+      .getUserMedia({ video: { width: 1920, height: 1080 }, audio:true })
       .then((stream) => {
-        videoRef.current.srcObject = stream;
+        let video = videoRef.current;
+        if ('srcObject' in video) {
+          video.srcObject = stream;
+        } else {
+          // For older browsers that don't support srcObject
+          video.src = window.URL.createObjectURL(stream);
+        }
+        video.play().catch((err) => {
+          console.error('Error playing video:', err);
+        });
 
+        // Initialize the MediaRecorder for video recording
         mediaRecorderRef.current = new MediaRecorder(stream);
-        const chunks = [];
-
-        mediaRecorderRef.current.ondataavailable = (e) => {
-          if (e.data.size > 0) {
-            chunks.push(e.data);
-          }
-        };
-
-        mediaRecorderRef.current.onstop = () => {
-          const blob = new Blob(chunks, { type: 'video/mp4' });
-          const url = URL.createObjectURL(blob);
-          setRecordedVideoUrl(url);
-        };
-
-        mediaRecorderRef.current.start();
-        setIsRecording(true);
       })
-      .catch((error) => {
-        console.error('Error accessing media devices:', error);
+      .catch((err) => {
+        console.error(err);
       });
   };
 
+  const handleDataAvailable = (event) => {
+    if (event.data && event.data.size > 0) {
+      recordedChunksRef.current.push(event.data);
+    }
+  };
+
+  const startRecording = () => {
+    setIsRecording(true);
+
+    // Reset the recordedChunks array
+    recordedChunksRef.current = [];
+
+    mediaRecorderRef.current.ondataavailable = handleDataAvailable;
+
+
+    mediaRecorderRef.current.start();
+  };
+
   const stopRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.stop();
+        mediaRecorderRef.current.onstop = () => {
+      const blob = new Blob(recordedChunksRef.current, { type: 'video/webm' });
+      const url = URL.createObjectURL(blob);
+      setRecordedVideoUrl(url);
+
+      // Create a download link for the recorded video
+      const downloadLink = document.createElement('a');
+      downloadLink.href = URL.createObjectURL(blob);
+      downloadLink.download = 'recorded-video.webm';
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+
       setIsRecording(false);
-      setIsPaused(false);
-      mediaRecorderRef.current = null;
-      videoRef.current.srcObject = null;
-    }
+    };
+    mediaRecorderRef.current.stop();
   };
 
-  const pauseRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.pause();
-      setIsPaused(true);
-    }
-  };
-
-  const resumeRecording = () => {
-    if (mediaRecorderRef.current && isRecording) {
-      mediaRecorderRef.current.resume();
-      setIsPaused(false);
-    }
-  };
+  useEffect(() => {
+    getVideo();
+  }, [videoRef]);
 
   const uploadVideo = async () => {
     if (recordedVideoUrl) {
@@ -80,28 +85,21 @@ const Record = () => {
   };
 
   return (
-    <div>
-      <video ref={videoRef} width="640" height="480" autoPlay controls muted />
-      <div>
+    <div className='container-fluid'>
+
+      <div className='camera'>
+        <video ref={videoRef}></video>
         {isRecording ? (
-          <>
-            <button onClick={stopRecording}>Stop Recording</button>
-            {isPaused ? (
-              <button onClick={resumeRecording}>Resume Recording</button>
-            ) : (
-              <button onClick={pauseRecording}>Pause Recording</button>
-            )}
-          </>
+          <button onClick={stopRecording}>Stop Recording</button>
         ) : (
-          <>
-            <button onClick={startRecording}>Start Recording</button>
-            {recordedVideoUrl && (
+          <button onClick={startRecording}>Start Recording</button>
+        )}
+        {recordedVideoUrl && (
               <div className="container-fluid featureButton">
                 <Button message={"Upload"} onClick={uploadVideo} link={"feedback"} />
               </div>
-            )}
-          </>
-        )}
+            )
+        }
       </div>
     </div>
   );
