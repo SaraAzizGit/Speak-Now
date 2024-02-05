@@ -1,30 +1,46 @@
-import requests
-from flask import Flask, request, jsonify
+import subprocess
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS # Cross Origin Resource Sharing
 import os
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/api/upload_recorded_video", methods=["POST"])
-def upload_recorded_video():
-    
-    # getting the video URL from the request
-    video_url = request.json.get('videoUrl')
 
-    # validating if a valid URL is provided
-    if not video_url:
-        return jsonify({"error": "Invalid video URL"}), 400
+@app.route('/')
+def index():
+    response = send_file('index.html')
+    response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
+    response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
+    return response
 
-    # downloading the video
-    video_data = requests.get(video_url).content
 
-    # saving the video to a desired location
-    save_path = os.path.join(os.path.dirname(__file__), "videos_for_analysis", "saved_video.mp4")
-    with open(save_path, 'wb') as video_file:
-        video_file.write(video_data)
 
-    return jsonify({"success": "Video saved successfully"}), 200
+@app.route('/api/crop-video', methods=['POST'])
+def crop_video():
+    # Check if a file was uploaded
+    if 'video' not in request.files:
+        return 'No file provided', 400
+
+    video_file = request.files['video']
+
+    # Save the uploaded video
+    video_path = 'uploaded_video.webm'
+    video_file.save(video_path)
+
+    # Define the start and end time for cropping (example: 10 seconds to 30 seconds)
+    start_time = '00:00:00'
+    duration = '00:00:02'
+
+    # Define the output file path for the cropped video
+    cropped_video_path = 'cropped_video.webm'
+
+    # Run ffmpeg command to crop the video
+    crop_command = f'ffmpeg -i {video_path} -ss {start_time} -t {duration} -c:v copy -c:a copy {cropped_video_path}'
+    subprocess.run(crop_command, shell=True)
+
+    # Return the path to the cropped video
+    return jsonify({'cropped_video_path': cropped_video_path})
     
 
 
