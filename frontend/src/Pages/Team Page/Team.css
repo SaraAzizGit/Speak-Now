@@ -24,12 +24,13 @@
 }
 
 .imageContainer{
-    height: 80% !important;
+    height: 100% !important;
     width: 100%;
 }
 .teamMemberPic{
     height: 100% !important;
     width: 100%;
+    border-radius: 15px !important;
 }
 .img-fluid{
     height: 100% !important;

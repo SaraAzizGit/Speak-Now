@@ -35,6 +35,7 @@ export default function VideoInput(props) {
       setSource(props.source);
     }
   }, [])
+  
   return (
     
     <div className="VideoInput">

@@ -1,15 +1,9 @@
-import { useState, useRef } from "react";
+import React from "react";
 import VideoRecorder from "../../Components/Record/VideoRecorder";
 
 const Record = () => {
-    let [recordOption, setRecordOption] = useState("video");
-    const toggleRecordOption = (type) => {
-        return () => {
-            setRecordOption(type);
-        };
-    };
     return (
-        <div>
+        <div className="container-fluid">
             <VideoRecorder />
         </div>
     );

@@ -1,4 +1,4 @@
-import subprocess
+import requests
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS # Cross Origin Resource Sharing
 import os
@@ -6,42 +6,30 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-
-@app.route('/')
-def index():
-    response = send_file('index.html')
-    response.headers['Cross-Origin-Opener-Policy'] = 'same-origin'
-    response.headers['Cross-Origin-Embedder-Policy'] = 'require-corp'
-    return response
-
-
-
-@app.route('/api/crop-video', methods=['POST'])
-def crop_video():
-    # Check if a file was uploaded
-    if 'video' not in request.files:
-        return 'No file provided', 400
-
-    video_file = request.files['video']
-
-    # Save the uploaded video
-    video_path = 'uploaded_video.webm'
-    video_file.save(video_path)
-
-    # Define the start and end time for cropping (example: 10 seconds to 30 seconds)
-    start_time = '00:00:00'
-    duration = '00:00:02'
-
-    # Define the output file path for the cropped video
-    cropped_video_path = 'cropped_video.webm'
-
-    # Run ffmpeg command to crop the video
-    crop_command = f'ffmpeg -i {video_path} -ss {start_time} -t {duration} -c:v copy -c:a copy {cropped_video_path}'
-    subprocess.run(crop_command, shell=True)
-
-    # Return the path to the cropped video
-    return jsonify({'cropped_video_path': cropped_video_path})
+@app.route("/api/upload_recorded_video", methods=["GET", "POST"])
+def upload_recorded_video():
+    # checking if the POST request contains a URL
+    if "video" not in request.form:
+        return jsonify({"error": "No video URL provided"}), 400
     
+    video_url = request.form["video"]
+    print("Received video URL:", video_url)
+
+    # fetch the video file from the URL
+    response = requests.get(video_url)
+    if response.status_code != 200:
+        return jsonify({"error": "Failed to fetch video file from URL"}), 400
+    
+    video_file = response.content
+
+    # save the video file
+    save_path = os.path.join(os.path.dirname(__file__), "videos_for_analysis", "uploaded_video.mp4")
+    with open(save_path, "wb") as f:
+        f.write(video_file)
+
+    return jsonify({"success": "Video uploaded successfully"}), 200
+
+
 
 
 @app.route("/api/upload_video", methods=["GET", "POST"])

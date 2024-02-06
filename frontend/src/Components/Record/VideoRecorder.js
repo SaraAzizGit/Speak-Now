@@ -4,6 +4,7 @@ import Slider from './Slider';
 import './VidTrim.css';
 import VideoInput from './VideoInput';
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
+import Button from '../../Components/Button/Button';
 
 const mimeType = "video/webm";
 
@@ -54,11 +55,13 @@ const VideoRecorder = () => {
 
         setProcessing(true);
         await ffmpeg.load();
-        await ffmpeg.FS('writeFile', 'in.avi', await fetchFile(vid));
+        await ffmpeg.FS('writeFile', 'in.avi', await fetchFile(recordedVideo));
         await ffmpeg.run('-ss', secondsToTimeStamp(start_val), '-to', secondsToTimeStamp(end_val), '-i', 'in.avi', 'out.mp4');
         setProgress(100);
         data = (await ffmpeg.FS('readFile', 'out.mp4'));
-        setDataUrl(URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'})));
+        const dataUrl = URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
+        setDataUrl(dataUrl);
+        uploadVideo(dataUrl);
     }
 
     const getCameraPermission = async () => {
@@ -129,21 +132,18 @@ const VideoRecorder = () => {
             const videoUrl = URL.createObjectURL(videoBlob);
             setRecordedVideo(videoUrl);
             setVideoChunks([]);
-
-            const formData = new FormData();
-            formData.append('video', videoBlob, 'cropped_video.webm');
-
-            try {
-                const response = await axios.post('http://localhost:5000/api/crop-video', formData, { method: 'POST', })
-
-                console.log(response.data);
-                // You can handle success here, like displaying a success message or redirecting the user.
-            } catch (error) {
-                console.error('Error uploading video:', error);
-                // You can handle errors here, like displaying an error message to the user.
-            }
         };
     };
+
+    const uploadVideo = async (url) => {
+        try {
+            const response = await axios.post('http://localhost:5000/api/upload_recorded_video', { video: url });
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error uploading video', error);
+        }
+    };
+      
 
     return (
         <div>
@@ -174,31 +174,28 @@ const VideoRecorder = () => {
                 ) : null}
                 {recordedVideo ? (
                     <div className="recorded-player">
-                        <video className="recorded" src={recordedVideo} controls></video>
-                        <a download href={recordedVideo}>
-                            Download Recording
-                        </a>
+                        <div className="VidTrim">
+                            <div>
+                                {recordedVideo && <VideoInput source={recordedVideo} vid_load={setRecordedVideo} set_vid_duration={set_vid_duration} set_vid={set_vid} width={"60%"} height={"30%"}></VideoInput>}
+                                <div id="Sliders">
+                                    <Slider value={start_val} max={vid_duration} disabled={recordedVideo} title={"Start Trim"} changeSlide={onSlideChangeStart} convertTime={secondsToTimeStamp}></Slider>
+                                    
+                                    <Slider value={end_val} min={start_val} max={vid_duration} disabled={recordedVideo} title={"End Trim"} changeSlide={onSlideChangeEnd} convertTime={secondsToTimeStamp}></Slider>
+                                </div>
+                                <div id="btnContainer">
+                                <button id="btnConvert" onClick={handleClick} disabled={!recordedVideo}>Trim Video</button>
+                                </div>
+                                <div>
+                                {processing && <p className="details">Processing: {progress}%</p>}
+                                </div>
+                            </div>
+                            <div id="output-video">
+                                {dataUrl && <VideoInput source={dataUrl} width={"60%"} height={"30%"}></VideoInput>}
+                                <div className="container-fluid featureButton"><Button message={"Upload"} link={"feedback"}></Button></div>
+                            </div>
+                        </div>
                     </div>
                 ) : null}
-            </div>
-            <div className="VidTrim">
-                <div>
-                    <VideoInput vid_load={set_vid_loaded} set_vid_duration={set_vid_duration} set_vid={set_vid} width={"60%"} height={"30%"}></VideoInput>
-                    <div id="Sliders">
-                        <Slider value={start_val} max={vid_duration} disabled={vid_loaded} title={"Start Trim"} changeSlide={onSlideChangeStart} convertTime={secondsToTimeStamp}></Slider>
-                        
-                        <Slider value={end_val} min={start_val} max={vid_duration} disabled={vid_loaded} title={"End Trim"} changeSlide={onSlideChangeEnd} convertTime={secondsToTimeStamp}></Slider>
-                    </div>
-                    <div id="btnContainer">
-                    <button id="btnConvert" onClick={handleClick} disabled={!vid_loaded}>Trim Video</button>
-                    </div>
-                    <div>
-                    {processing && <p className="details">Processing: {progress}%</p>}
-                    </div>
-                </div>
-                <div id="output-video">
-                    {dataUrl && <VideoInput source={dataUrl} width={"60%"} height={"30%"}></VideoInput>}
-                </div>
             </div>
         </div>
     );
