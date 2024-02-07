@@ -5,10 +5,14 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-feedback_data = {}
+video_feedback_data = {}
+video_id = ""
 
 @app.route("/api/upload_video", methods=["GET", "POST"])
 def upload_video():
+
+    global video_id
+    video_id = request.form.get('video_id')
 
     # checking if the POST request contains a file
     if "video" not in request.files:
@@ -25,7 +29,7 @@ def upload_video():
 
 @app.route("/api/get_feedback", methods=["GET", "POST"])
 def get_feedback():
-
+    
     from facial_expression_data_analysis import nervousness_in_expressions, confidence_in_expressions
     from audio_data_analysis import nervousness_in_speech, confidence_in_speech
 
@@ -36,20 +40,26 @@ def get_feedback():
     nervousness = round(nervousness, 2)
     confidence = round(confidence, 2)
 
+    global feedback_data
     feedback_data = {"nervousness": nervousness, "confidence": confidence}
+    video_feedback_data[video_id] = feedback_data
+    print(video_feedback_data)
 
-    return jsonify(feedback_data if feedback_data else {})
+    return jsonify(video_feedback_data)
 
 
 
 @app.route("/api/delete_video", methods=["POST"])
 def delete_video():
     
-    path = os.path.join(os.path.dirname(__file__), "videos_for_analysis", "uploaded_video.mp4")
-    os.remove(path)
+    video_path = os.path.join(os.path.dirname(__file__), "videos_for_analysis", "uploaded_video.mp4")
+    os.remove(video_path)
 
-    global feedback_data
-    feedback_data = {}
+    audio_path = os.path.join(os.path.dirname(__file__), "audios_for_analysis", "audio.wav")
+    os.remove(audio_path)
+
+    if video_id in video_feedback_data:
+        del video_feedback_data[video_id]
 
     return jsonify({"success": "Video deleted successfully"})
 

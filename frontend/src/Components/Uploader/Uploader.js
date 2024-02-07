@@ -12,9 +12,17 @@ const Uploader = () => {
     const [video,setVideo]=useState(null);
     const [fileName,setFileName]=useState("No selected file");
 
+    const generateVideoId = () => {
+      const timestamp = new Date().getTime(); // getting current timestamp
+      const randomSuffix = Math.floor(Math.random() * 1000); // adding a random number to ensure uniqueness
+      return `video_${timestamp}_${randomSuffix}`; // concatenating timestamp and random number
+    }    
+
     const uploadVideo = async(file) => {
-      const formData = new FormData()
-      formData.append('video', file)
+      const videoId = generateVideoId();
+      const formData = new FormData();
+      formData.append('video', file);
+      formData.append('video_id', videoId);
 
       try {
         const response = await axios.post('http://localhost:5000/api/upload_video', formData, { method: 'POST', })
