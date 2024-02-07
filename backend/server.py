@@ -1,4 +1,3 @@
-import requests
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS # Cross Origin Resource Sharing
 import os
@@ -6,31 +5,7 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-@app.route("/api/upload_recorded_video", methods=["GET", "POST"])
-def upload_recorded_video():
-    # checking if the POST request contains a URL
-    if "video" not in request.form:
-        return jsonify({"error": "No video URL provided"}), 400
-    
-    video_url = request.form["video"]
-    print("Received video URL:", video_url)
-
-    # fetch the video file from the URL
-    response = requests.get(video_url)
-    if response.status_code != 200:
-        return jsonify({"error": "Failed to fetch video file from URL"}), 400
-    
-    video_file = response.content
-
-    # save the video file
-    save_path = os.path.join(os.path.dirname(__file__), "videos_for_analysis", "uploaded_video.mp4")
-    with open(save_path, "wb") as f:
-        f.write(video_file)
-
-    return jsonify({"success": "Video uploaded successfully"}), 200
-
-
-
+feedback_data = {}
 
 @app.route("/api/upload_video", methods=["GET", "POST"])
 def upload_video():
@@ -48,7 +23,7 @@ def upload_video():
 
 
 
-@app.route("/api/get_feedback", methods=["GET"])
+@app.route("/api/get_feedback", methods=["GET", "POST"])
 def get_feedback():
 
     from facial_expression_data_analysis import nervousness_in_expressions, confidence_in_expressions
@@ -61,7 +36,9 @@ def get_feedback():
     nervousness = round(nervousness, 2)
     confidence = round(confidence, 2)
 
-    return jsonify({"nervousness": nervousness, "confidence": confidence})
+    feedback_data = {"nervousness": nervousness, "confidence": confidence}
+
+    return jsonify(feedback_data if feedback_data else {})
 
 
 
@@ -70,6 +47,9 @@ def delete_video():
     
     path = os.path.join(os.path.dirname(__file__), "videos_for_analysis", "uploaded_video.mp4")
     os.remove(path)
+
+    global feedback_data
+    feedback_data = {}
 
     return jsonify({"success": "Video deleted successfully"})
 

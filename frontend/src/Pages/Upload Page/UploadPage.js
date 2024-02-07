@@ -8,8 +8,7 @@ const UploadPage = () => {
         <div className="container-fluid uploadHeading">
             <h1 className='display-1 uploadVideoHeading'>Upload your video to process!</h1>
         </div>
-        <Uploader/>
-        
+        <Uploader/>        
     </div>
   )
 }

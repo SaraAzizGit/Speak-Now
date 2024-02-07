@@ -1,0 +1,56 @@
+.video-player {
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    flex-direction: column;
+    margin-top: 1%;
+    width: 100%;
+}
+
+.live-player {
+    width: 40%;
+    height: 30%;
+}
+
+#Sliders{
+    display: inline-flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.VidTrim {
+    width: 100%;
+}
+
+.output-video-player {
+    margin-top: 1%;
+    width: 30%;
+    height: 20%;
+}
+
+#btnConvert {
+    padding: 5px ;
+}
+
+.details {
+    font-size: small;
+    text-align: center;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1%;
+}
+
+.record-btn {
+    font-family: Montserrat !important;
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-align: center !important;
+    border: 2px solid #a772ea !important;
+    background-color: transparent !important;
+    color: #000 !important;
+}

@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import Slider from './Slider';
-import './VidTrim.css';
+import './VideoRecorder.css';
 import VideoInput from './VideoInput';
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 import Button from '../../Components/Button/Button';
@@ -20,8 +20,7 @@ const VideoRecorder = () => {
 
     const [start_val, set_start_val] = useState(0);
     const [end_val, set_end_val] = useState(0);
-    const [vid, set_vid] = useState();
-    const [vid_loaded, set_vid_loaded] = useState(false);
+    const [set_vid] = useState();
     const [vid_duration, set_vid_duration] = useState(0);
     const [dataUrl, setDataUrl] = useState();
     const [processing, setProcessing] = useState(false);
@@ -61,7 +60,8 @@ const VideoRecorder = () => {
         data = (await ffmpeg.FS('readFile', 'out.mp4'));
         const dataUrl = URL.createObjectURL(new Blob([data.buffer], {type: 'video/mp4'}));
         setDataUrl(dataUrl);
-        uploadVideo(dataUrl);
+        const file = new Blob([data.buffer], {type: 'video/mp4'});
+        uploadVideo(file);
     }
 
     const getCameraPermission = async () => {
@@ -135,35 +135,42 @@ const VideoRecorder = () => {
         };
     };
 
-    const uploadVideo = async (url) => {
+    const uploadVideo = async (file) => {
+        const formData = new FormData();
+        formData.append('video', file);
+    
         try {
-            const response = await axios.post('http://localhost:5000/api/upload_recorded_video', { video: url });
+            const response = await axios.post('http://localhost:5000/api/upload_video', formData);
             console.log(response.data);
         } catch (error) {
             console.error('Error uploading video', error);
         }
-    };
-      
+    };    
 
     return (
         <div>
-            <h2>Video Recorder</h2>
             <main>
                 <div className="video-controls">
                     {!permission ? (
-                        <button onClick={getCameraPermission} type="button">
-                            Record Video
-                        </button>
+                        <div class="btn-container">
+                            <button class="record-btn" onClick={getCameraPermission} type="button">
+                                Record Video
+                            </button>
+                        </div>
                     ) : null}
                     {permission && recordingStatus === "inactive" ? (
-                        <button onClick={startRecording} type="button">
-                            Start Recording
-                        </button>
+                        <div class="btn-container">
+                            <button class="record-btn" onClick={startRecording} type="button">
+                                Start Recording
+                            </button>
+                        </div>
                     ) : null}
                     {recordingStatus === "recording" ? (
-                        <button onClick={stopRecording} type="button">
-                            Stop Recording
-                        </button>
+                        <div class="btn-container">
+                            <button class="record-btn" onClick={stopRecording} type="button">
+                                Stop Recording
+                            </button>
+                        </div>
                     ) : null}
                 </div>
             </main>
@@ -176,23 +183,27 @@ const VideoRecorder = () => {
                     <div className="recorded-player">
                         <div className="VidTrim">
                             <div>
-                                {recordedVideo && <VideoInput source={recordedVideo} vid_load={setRecordedVideo} set_vid_duration={set_vid_duration} set_vid={set_vid} width={"60%"} height={"30%"}></VideoInput>}
+                                <div className="live-player">
+                                    {recordedVideo && <VideoInput source={recordedVideo} vid_load={setRecordedVideo} set_vid_duration={set_vid_duration} set_vid={set_vid}></VideoInput>}
+                                </div>
                                 <div id="Sliders">
                                     <Slider value={start_val} max={vid_duration} disabled={recordedVideo} title={"Start Trim"} changeSlide={onSlideChangeStart} convertTime={secondsToTimeStamp}></Slider>
                                     
                                     <Slider value={end_val} min={start_val} max={vid_duration} disabled={recordedVideo} title={"End Trim"} changeSlide={onSlideChangeEnd} convertTime={secondsToTimeStamp}></Slider>
                                 </div>
-                                <div id="btnContainer">
-                                <button id="btnConvert" onClick={handleClick} disabled={!recordedVideo}>Trim Video</button>
+                                <div class="btn-container">
+                                    <button class="record-btn" onClick={handleClick} disabled={!recordedVideo}>Trim Video</button>
                                 </div>
                                 <div>
-                                {processing && <p className="details">Processing: {progress}%</p>}
+                                    {processing && progress !== 100 ? (<p className="details">Processing...</p>): null}
+                                </div>
+                                <div class="output-video-player">
+                                {dataUrl && <VideoInput source={dataUrl}></VideoInput>}
                                 </div>
                             </div>
-                            <div id="output-video">
-                                {dataUrl && <VideoInput source={dataUrl} width={"60%"} height={"30%"}></VideoInput>}
-                                <div className="container-fluid featureButton"><Button message={"Upload"} link={"feedback"}></Button></div>
-                            </div>
+                        </div>
+                        <div class="btn-container">
+                            {dataUrl && <div className="container-fluid featureButton"><Button message={"Upload"} link={"feedback"}></Button></div>}
                         </div>
                     </div>
                 ) : null}
