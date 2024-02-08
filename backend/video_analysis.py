@@ -44,11 +44,18 @@ def extract_audio(video_path, output_audio_path):
 
 
 # sending video file to functions to recognize emotions and extract audio
-video_relative_path = "../backend/videos_for_analysis/uploaded_video.mp4"
-video_absolute_path = os.path.abspath(video_relative_path)
+directory = os.path.join(os.path.dirname(__file__), "videos_for_analysis")
 
-output_audio_relative_path = "../backend/audios_for_analysis/audio.wav"
-output_audio_absolute_path = os.path.abspath(output_audio_relative_path)
+# listing all files in the directory
+file = os.listdir(directory)
 
-facial_expression_data = analyze_video(video_absolute_path) # extracted emotions
-extract_audio(video_absolute_path, output_audio_absolute_path) # extracted audio
+# constructing absolute paths for the file
+file_path = os.path.join(directory, file[0])
+
+filename = (file[0].split("."))[0]
+
+video_path = os.path.join(os.path.dirname(__file__), "videos_for_analysis", filename + ".mp4")
+output_audio_path = os.path.join(os.path.dirname(__file__), "audios_for_analysis", filename + ".wav")
+
+facial_expression_data = analyze_video(video_path) # extracted emotions
+extract_audio(video_path, output_audio_path) # extracted audio

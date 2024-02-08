@@ -69,3 +69,19 @@
     text-align: left;
     color:  #A772EA;
 }
+
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Adjust as needed */
+}
+
+.loading-animation {
+    text-align: center;
+}
+  
+.loading-animation p {
+    display: inline-block;
+    margin: 0;
+}

@@ -37,10 +37,15 @@ def predict_emotion(model, features):
 
 
 
-audio_relative_path = "../backend/audios_for_analysis/audio.wav"
-audio_absolute_path = os.path.abspath(audio_relative_path)
+directory = os.path.join(os.path.dirname(__file__), "audios_for_analysis")
 
-audio_features = preprocess_audio(audio_absolute_path)
+# listing all files in the directory
+file = os.listdir(directory)
+
+# constructing absolute paths for the file
+file_path = os.path.join(directory, file[0])
+
+audio_features = preprocess_audio(file_path)
 
 emotion_predictions = predict_emotion(model, audio_features) 
 
