@@ -2,9 +2,16 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS # Cross Origin Resource Sharing
 import os
 import uuid
+import sys
 
 app = Flask(__name__)
 CORS(app)
+
+def restart_server():
+    python = sys.executable
+    os.execl(python, python, *sys.argv)
+
+
 
 def empty_folder(folder_name):
     
@@ -56,6 +63,9 @@ def delete_video():
     # deleting video and audio files after analysis
     empty_folder("videos_for_analysis")
     empty_folder("audios_for_analysis")
+
+    # restarting server to delete previous analysis results
+    restart_server()
 
     return jsonify({"success": "Video deleted successfully"})
 
