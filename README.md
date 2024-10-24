@@ -31,7 +31,7 @@ Make sure you have the following installed:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/saradotdev/Speak-Now.git
-   cd Speak-Now/backend
+   cd backend
    ```
 
 2. **Install dependencies:**
@@ -47,7 +47,7 @@ Make sure you have the following installed:
 ### Frontend Setup (React.js) ⚛
 1. **Navigate to the frontend folder:**
    ```bash
-   cd Speak-Now/frontend
+   cd frontend
    ```
 
 2. **Install frontend dependencies:**
