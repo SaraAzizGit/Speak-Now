@@ -34,18 +34,12 @@ Make sure you have the following installed:
    cd Speak-Now/backend
    ```
 
-2. **Create a virtual environment:**
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # For Windows, use venv\Scripts\activate
-   ```
-
-3. **Install dependencies:**
+2. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Run the Flask app:**
+3. **Run the Flask app:**
    ```bash
    python app.py
    ```
