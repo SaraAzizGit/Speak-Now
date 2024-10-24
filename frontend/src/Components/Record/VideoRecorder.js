@@ -22,7 +22,7 @@ const VideoRecorder = () => {
     const [start_val, set_start_val] = useState(0);
     const [end_val, set_end_val] = useState(0);
     const [set_vid] = useState();
-    const [vid_duration, set_vid_duration] = useState(0);
+    const [, set_vid_duration] = useState(0);
     const [dataUrl, setDataUrl] = useState();
     const [processing, setProcessing] = useState(false);
     const [progress, setProgress] = useState();
