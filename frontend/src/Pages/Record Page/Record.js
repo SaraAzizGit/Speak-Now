@@ -5,7 +5,9 @@ const Record = () => {
     return (
         <div className="container-fluid">
             <div className="container-fluid uploadHeading">
-                <h1 className='display-1 uploadVideoHeading'>Record your video to process!</h1>
+                <h1 className="display-1 uploadVideoHeading">
+                    Record your video to process!
+                </h1>
             </div>
             <VideoRecorder />
         </div>
