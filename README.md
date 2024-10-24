@@ -5,7 +5,7 @@
 
 ## Features ✨
 - **Video Upload and Recording:** Users can upload pre-recorded videos or record their presentations directly on the website.
-- **Facial Expression Analysis:** Uses OpenCV and the DeepFace library to detect seven key emotions — Angry, Sad, Happy, Disgust, Fear, Surprise, and Neutral — to assess confidence and nervousness levels.
+- **Facial Expression Analysis:** Uses OpenCV and the DeepFace library to detect six key emotions — Angry, Sad, Happy, Disgust, Fear, and Neutral — to assess confidence and nervousness levels.
 - **Voice Analysis:** Analyzes tone and pitch to evaluate nervousness and confidence using pre-trained voice models.
 - **Comprehensive Reports:** Combines video and voice analysis to generate a detailed feedback report with visual graphs of emotional patterns.
 
