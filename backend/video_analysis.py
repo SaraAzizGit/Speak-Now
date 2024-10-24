@@ -22,11 +22,7 @@ def analyze_video(video_path):
         result = DeepFace.analyze(frame, actions=["emotion"], enforce_detection=False)
         emotions.append(result[0])
 
-        if cv2.waitKey(1) == ord("q"):
-            break
-
     cap.release()
-    cv2.destroyAllWindows()
 
     return emotions
 
