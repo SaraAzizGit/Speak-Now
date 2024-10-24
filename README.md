@@ -20,23 +20,6 @@
 - **Other:**
   - Axios for making HTTP requests between frontend and backend.
 
-## Project Structure 📂
-project-root/
-│
-├── backend/                         # Flask API and emotion analysis
-|   ├── requirements.txt             # Backend dependencies
-│   └── app.py                       # Main Flask app file
-│
-├── frontend/                        # React.js frontend
-|   ├── package.json                 # Frontend dependencies
-│   ├── public/                      # Public static files
-│   └── src/
-│       ├── components/              # Reusable React components
-│       ├── pages/                   # Pages
-│       └── App.js                   # Main app file
-│
-└── README.md                        # Project documentation
-
 ## Installation and Setup 🔑
 
 ### Prerequisites ⚠
