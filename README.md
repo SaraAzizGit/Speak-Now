@@ -31,15 +31,19 @@ Make sure you have the following installed:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/saradotdev/Speak-Now.git
+   ```
+
+2. **Navigate to the backend folder:**
+   ```bash
    cd backend
    ```
 
-2. **Install dependencies:**
+3. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Run the Flask app:**
+4. **Run the Flask app:**
    ```bash
    python app.py
    ```
